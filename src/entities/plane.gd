@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 var gravity : int = ProjectSettings.get_setting("physics/2d/default_gravity")
-@export var flap_power :int = 400 #飞机向上力度
+@export var flap_power :int = 300 #飞机向上力度
 @export var max_tilt_angle : int = 60 # 45 朝右下倾斜
 @export var min_tilt_angle : int = -60 #-45 朝右上倾斜
+@export var max_velocity_y : int = 200 #y轴最大速度
 
 func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * delta
@@ -15,5 +16,5 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("flap"):
-		velocity.y -= flap_power #给飞机一个向上的力度
+		velocity.y = clamp(velocity.y - flap_power,max_velocity_y * -1,max_velocity_y)
 		
