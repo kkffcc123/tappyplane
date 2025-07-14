@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://bo0ccr170ty8e"]
+[gd_scene load_steps=2 format=3 uid="uid://bo0ccr170ty8e"]
+
+[ext_resource type="PackedScene" uid="uid://bbiobdqbfqx5g" path="res://src/entities/plane.tscn" id="1_2on7n"]
 
 [node name="Main" type="Node2D"]
+
+[node name="Plane" parent="." instance=ExtResource("1_2on7n")]
+position = Vector2(252, 140)
