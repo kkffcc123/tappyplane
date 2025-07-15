@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bo0ccr170ty8e"]
+[gd_scene load_steps=7 format=3 uid="uid://bo0ccr170ty8e"]
 
 [ext_resource type="PackedScene" uid="uid://bbiobdqbfqx5g" path="res://src/entities/plane.tscn" id="1_2on7n"]
 [ext_resource type="Script" path="res://parallax_background.gd" id="1_feub1"]
 [ext_resource type="Script" path="res://main.gd" id="1_nkul0"]
 [ext_resource type="Texture2D" uid="uid://bj5bl77gxeog0" path="res://assets/textures/others/background.png" id="2_7rppj"]
 [ext_resource type="PackedScene" uid="uid://cui3hsvt6ko31" path="res://src/entities/rock.tscn" id="5_1mw1a"]
+[ext_resource type="PackedScene" uid="uid://cjoh0mlqr2tnf" path="res://src/game_form.tscn" id="5_mnqha"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_nkul0")
@@ -29,3 +30,17 @@ position = Vector2(34, 159)
 [node name="Rock" parent="." instance=ExtResource("5_1mw1a")]
 position = Vector2(517, 85)
 rotation = 3.14159
+
+[node name="GameForm" parent="." instance=ExtResource("5_mnqha")]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 1
