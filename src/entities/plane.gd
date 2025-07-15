@@ -11,7 +11,6 @@ func _physics_process(delta: float) -> void:
 	#设施倾斜角度
 	var tilt_angle = clamp((velocity.y / gravity) * max_tilt_angle,min_tilt_angle,max_tilt_angle)
 	self.rotation_degrees = tilt_angle
-
 	move_and_slide()
 
 func _unhandled_input(event: InputEvent) -> void:
