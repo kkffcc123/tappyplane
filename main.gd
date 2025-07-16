@@ -4,10 +4,14 @@ var timer : Timer = Timer.new() #还没有加载到场景中
 
 @onready var game_form: Control = %GameForm
 @onready var plane: CharacterBody2D = %Plane
-const s_plane : PackedScene = preload("res://src/entities/plane.tscn")
+@onready var audio_game_over: AudioStreamPlayer = $AudioGameOver
+
+
 @export var min_spawn_rock_time : float = 1.0
 @export var max_spawn_rock_time : float = 3.0
 @export var s_rock : PackedScene = preload("res://src/entities/rock.tscn") #预加载，还没有实例化
+
+const s_plane : PackedScene = preload("res://src/entities/plane.tscn")
 var current_score : int = 0
 var score_timer : Timer = Timer.new()
 
@@ -45,6 +49,7 @@ func spawn_rock() -> void:
 func game_over() -> void:
 	get_tree().paused = true
 	game_form.game_over()
+	audio_game_over.play() #暂停后play会继续播放哈哈哈哈
 	for rock in get_tree().get_nodes_in_group("rock"):
 		rock.queue_free()
 

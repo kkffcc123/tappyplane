@@ -5,6 +5,7 @@ var gravity : int = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var max_tilt_angle : int = 60 # 45 朝右下倾斜
 @export var min_tilt_angle : int = -60 #-45 朝右上倾斜
 @export var max_velocity_y : int = 200 #y轴最大速度
+@onready var audio_flap: AudioStreamPlayer = $AudioFlap
 
 func _physics_process(delta: float) -> void:
 	velocity += get_gravity() * delta
@@ -15,5 +16,8 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("flap"):
-		velocity.y = clamp(velocity.y - flap_power,max_velocity_y * -1,max_velocity_y)
-		
+		flap()
+
+func flap() -> void:
+	velocity.y = clamp(velocity.y - flap_power,max_velocity_y * -1,max_velocity_y)
+	audio_flap.play()
