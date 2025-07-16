@@ -1,6 +1,11 @@
 extends Control
 
 @onready var score_container: HBoxContainer = %ScoreContainer
+@onready var w_game_over_pop_up: MarginContainer = %WGameOverPopUp
+
+signal quit_pressed
+
+signal retry_pressed
 
 var number_textures = [
 	preload("res://assets/textures/widgets/numbers/number0.png"),
@@ -16,7 +21,13 @@ var number_textures = [
 ]
 
 func _ready() -> void:
-	pass
+	w_game_over_pop_up.hide()
+	
+func game_over() -> void:
+	w_game_over_pop_up.show()
+	
+func game_retry() -> void:
+	w_game_over_pop_up.hide()
 	
 #更新分数显示
 func update_score_display(current_score:int)-> void:
@@ -135,3 +146,10 @@ number_textures[5] 对应数字 5 的纹理
 
 最终显示效果：2 0 5（三个独立的数字图像）
 """
+
+
+func _on_btn_retry_pressed() -> void:
+	retry_pressed.emit()
+
+func _on_btn_quit_pressed() -> void:
+	quit_pressed.emit()

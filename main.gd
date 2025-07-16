@@ -4,6 +4,7 @@ var timer : Timer = Timer.new() #还没有加载到场景中
 
 @onready var game_form: Control = %GameForm
 @onready var plane: CharacterBody2D = %Plane
+const s_plane : PackedScene = preload("res://src/entities/plane.tscn")
 @export var min_spawn_rock_time : float = 1.0
 @export var max_spawn_rock_time : float = 3.0
 @export var s_rock : PackedScene = preload("res://src/entities/rock.tscn") #预加载，还没有实例化
@@ -11,6 +12,7 @@ var current_score : int = 0
 var score_timer : Timer = Timer.new()
 
 func _ready() -> void:
+	get_tree().paused = false
 	self.add_child(timer) #加载到场景中
 	timer.one_shot = true
 	timer.timeout.connect(_on_timer_timeout)
@@ -41,11 +43,13 @@ func spawn_rock() -> void:
 	self.add_child(rock) #add_child里面必须是个节点(node)
 
 func game_over() -> void:
-	print("飞机坠毁")
 	get_tree().paused = true
-	plane.queue_free()
+	game_form.game_over()
 	for rock in get_tree().get_nodes_in_group("rock"):
 		rock.queue_free()
+
+func game_retry() -> void:
+	get_tree().reload_current_scene()
 
 func _on_rock_entered() -> void:
 	game_over()
@@ -58,3 +62,9 @@ func _on_timer_timeout() -> void:
 func _on_score_timer_timeout() -> void:
 	current_score += 1
 	game_form.update_score_display(current_score)
+
+func _on_game_form_retry_pressed() -> void:
+	game_retry()
+
+func _on_game_form_quit_pressed() -> void:
+	get_tree().quit()
